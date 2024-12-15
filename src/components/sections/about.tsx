@@ -9,7 +9,7 @@ export const AboutSection = () => {
                 </div>
                 <div>
                     <p>
-                    And I love to create beautiful and efficient websites for my customers. I love going through the entire process with the customer from concept, to design and then development and launch
+                    And I love to create beautiful  I love going through the entire process with the customer from concept, to design and then development and launch
                     </p>
                 </div>
             </div>
