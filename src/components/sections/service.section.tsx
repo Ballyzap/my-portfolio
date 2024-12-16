@@ -19,13 +19,13 @@ export const ServiceSection = () => {
     },
     {
       icon: (props) => <MdDeveloperBoard {...props} />,
-      description: "LOVE",
+      description: "DESIGN",
       detail:
         "Successful online projects start with good design. It establishes a solid foundation for future development and allows for long term growth",
     },
     {
       icon: (props) => <PiTelevisionSimple {...props} />,
-      description: "LOVE",
+      description: "DESIGN",
       detail:
         "Successful online projects start with good design. It establishes a solid foundation for future development and allows for long term growth",
     },
@@ -35,17 +35,19 @@ export const ServiceSection = () => {
     <section>
       <div className="portfolio-container py-20">
         <div>
-          <div className="text-center">
-            <h2 className="text-4xl font-semibold text-gray-800 mb-3">
+          <div className="text-center px-4 sm:px-6 md:px-8">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-3">
               Offered services
             </h2>
-            <p className="text-lg text-gray-600">
-              Web design and development have been my bread and butter for more
-              than 5 years. During that time I've discovered that I can help
-              startups and companies with the following services
+            <p className="text-base sm:text-lg text-gray-600  md:w-2/3 mx-auto">
+              I am passionate about helping startups and businesses build strong
+              online presences through expert web development. By focusing on
+              creating efficient, scalable, and user-friendly solutions, I can
+              assist your business with the following services.
             </p>
           </div>
         </div>
+
         <div className="grid md:grid-cols-3 gap-12 pt-20">
           {serviceDetails.map(({ icon: SIcon, description, detail }, index) => (
             <div

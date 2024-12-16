@@ -37,7 +37,7 @@ export const ContactSection = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full py-3 pl-6 pr-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 peer pt-6"
+                  className="w-full py-3 pl-6 pr-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[0.5px] focus:ring-blue-500 focus:border-blue-500 peer pt-6"
                 />
                 <label
                   htmlFor="name"
@@ -58,7 +58,7 @@ export const ContactSection = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full py-3 pl-6 pr-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 peer pt-6"
+                  className="w-full py-3 pl-6 pr-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[0.5px] focus:ring-blue-500 focus:border-blue-500 peer pt-6"
                 />
                 <label
                   htmlFor="email"
@@ -78,14 +78,14 @@ export const ContactSection = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   required
-                  className="w-full py-3 pl-6 pr-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 peer pt-10 pb-40"
+                  className="w-full py-3 pl-6 pr-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[0.5px] focus:ring-blue-500 focus:border-blue-500 peer pt-10 pb-40"
                 />
                 <label
                   htmlFor="message"
                   className={`absolute left-6 top-8 transform -translate-y-1/2 text-sm text-primary-500 transition-all duration-200 ${
                     message
                       ? "top-4 translate-y-0 text-black"
-                      : "peer-placeholder-shown:top-1/2 peer-placeholder-shown:translate-y-1/2"
+                      : "peer-placeholder-shown:top-1/2  peer-placeholder-shown:translate-y-1/2"
                   } peer-focus:top-4 peer-focus:translate-y-0 peer-focus:text-black peer-focus:text-sm font-medium`}
                 >
                   Project details
