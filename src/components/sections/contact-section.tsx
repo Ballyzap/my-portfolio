@@ -12,7 +12,7 @@ export const ContactSection = () => {
       <div className="bg-gray-50 py-12">
         <div className="container mx-auto px-4 portfolio-container">
           <div className="mb-8">
-            <h2 className="text-center text-3xl font-bold text-gray-800">
+            <h2 className="text-center font-opensans text-3xl font-bold text-gray-800">
               Contact details
             </h2>
             <p className="text-lg w-2/2 font-merriweather text-center text-gray-600 mt-4">
@@ -29,7 +29,6 @@ export const ContactSection = () => {
           </div>
           <div className="w-full max-w-lg mx-auto">
             <form id="contactForm">
-              {/* Name Field */}
               <div className="mb-6 relative">
                 <input
                   type="text"
@@ -50,7 +49,6 @@ export const ContactSection = () => {
                   Name
                 </label>
               </div>
-              {/* Email Field */}
               <div className="mb-6 relative">
                 <input
                   type="email"
@@ -71,7 +69,6 @@ export const ContactSection = () => {
                   Email
                 </label>
               </div>
-              {/* Project Details Field */}
               <div className="mb-6 relative">
                 <textarea
                   id="message"
@@ -91,7 +88,6 @@ export const ContactSection = () => {
                   Project details
                 </label>
               </div>
-              {/* Submit Button */}
               <div className="mb-6">
                 <button
                   type="submit"

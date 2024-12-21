@@ -134,8 +134,4 @@
   .portfolio-container {
     @apply mx-auto max-w-6xl px-6;
   }
-
-  .portfolio-highlight {
-    @apply underline decoration-secondary-300 decoration-8 underline-offset-8 md:decoration-[10px];
-  }
 }
