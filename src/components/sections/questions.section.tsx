@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import AOS from "aos";
-import "aos/dist/aos.css"; // Import AOS styles
+import { motion } from "framer-motion"; // Import motion for Framer Motion
 
 interface Que {
   question: string;
@@ -45,17 +44,9 @@ export const QuestionSection = () => {
     },
   ];
 
-  // Initialize AOS after component mounts
-  useEffect(() => {
-    AOS.init({
-      duration: 1000, // Set animation duration (optional)
-      once: true, // Set to false if you want the animation to trigger multiple times
-    });
-  }, []);
-
   return (
     <section className="py-28">
-      <div className="">
+      <div>
         <div className="text-center mb-8">
           <h2 className="text-4xl lg:text-3xl font-semibold font-opensans">
             Frequent questions
@@ -82,12 +73,19 @@ export const QuestionSection = () => {
                 </button>
               </div>
 
+              {/* Apply Framer Motion for sliding and fading effect */}
               {activeIndex === index && (
-                <div className="pl-9 pt-3" data-aos="flip-up">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }} // Start with opacity 0 and slight offset from the bottom
+                  animate={{ opacity: 1, y: 0 }} // Fade in and slide up
+                  exit={{ opacity: 0, y: 20 }} // Fade out and slide down
+                  transition={{ duration: 0.4 }} // Smooth transition
+                  className="pl-9 pt-3"
+                >
                   <p className="text-left text-gray-600 font-serif">
                     {faq.answer}
                   </p>
-                </div>
+                </motion.div>
               )}
             </div>
           ))}

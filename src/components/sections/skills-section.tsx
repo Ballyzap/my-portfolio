@@ -1,93 +1,161 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { TiHtml5 } from "react-icons/ti";
 import { DiCss3 } from "react-icons/di";
 import { IoLogoJavascript } from "react-icons/io5";
 import { RiTailwindCssFill } from "react-icons/ri";
+import { SiTypescript } from "react-icons/si";
 import { IoLogoReact } from "react-icons/io5";
 import { RiNextjsFill } from "react-icons/ri";
 import { FaPython } from "react-icons/fa6";
 import { FaJava } from "react-icons/fa6";
-import { useState } from "react";
 import { IconType } from "react-icons";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
-interface skill {
+interface Skills {
   icon: IconType;
-  name: string;
+  skill: string;
   rank: string;
+  color: string;
 }
 
 export const SkillSection = () => {
-  const allSkills: skill[] = [
+  const allSkills: Skills[] = [
     {
       icon: (props) => <TiHtml5 {...props} />,
-      name: "HTML",
+      skill: "HTML",
       rank: "Proficiency",
+      color: "#E44D26",
     },
     {
       icon: (props) => <DiCss3 {...props} />,
-      name: "CSS",
+      skill: "CSS",
       rank: "Proficiency",
+      color: "#1572B6",
     },
     {
       icon: (props) => <IoLogoJavascript {...props} />,
-      name: "JavaScript",
+      skill: "JavaScript",
       rank: "Proficiency",
+      color: "#F7DF1E",
     },
     {
       icon: (props) => <RiTailwindCssFill {...props} />,
-      name: "Tailwind CSS",
+      skill: "Tailwind CSS",
       rank: "Proficiency",
+      color: "#38B2AC",
+    },
+    {
+      icon: (props) => <SiTypescript {...props} />,
+      skill: "TypeScript",
+      rank: "Proficiency",
+      color: "#3178C6",
     },
     {
       icon: (props) => <IoLogoReact {...props} />,
-      name: "React.js",
+      skill: "React.js",
       rank: "Proficiency",
+      color: "#61DAFB",
     },
     {
       icon: (props) => <RiNextjsFill {...props} />,
-      name: "Next.js",
+      skill: "Next.js",
       rank: "Proficiency",
+      color: "#000000",
     },
     {
       icon: (props) => <FaPython {...props} />,
-      name: "Python",
+      skill: "Python",
       rank: "Proficiency",
+      color: "#3776AB",
     },
     {
       icon: (props) => <FaJava {...props} />,
-      name: "Java",
+      skill: "Java",
       rank: "Proficiency",
+      color: "#007396",
     },
   ];
+
+  // Initialize AOS after component mounts
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false,
+    });
+  }, []);
 
   return (
     <section className="bg-primary-50 py-32">
       <div className="portfolio-container">
         <div>
-          <h1 className="text-center text-3xl pb-5">Why Work With Me</h1>
-          <p className="text-center">
-            I am a great communicator and love to invest the necessary time to
-            understand the customer's problem very well
+          <h1
+            className="text-center text-3xl lg:text-4xl font-roboto font-semibold pb-5"
+            data-aos="fade-up"
+            data-aos-duration="1500"
+            data-aos-delay="200"
+          >
+            Why Work With Me
+          </h1>
+          <p
+            className="text-center font-merriweather text-lg leading-relaxed"
+            data-aos="fade-up"
+            data-aos-duration="1500"
+            data-aos-delay="400"
+          >
+            I excel at communication and am committed to dedicating the time
+            <br />
+            needed to thoroughly understand the customer's challenges.
           </p>
+
+          {/* Stylish Line between Paragraph and Heading */}
+          <div
+            className="mt-8 w-full border-t-4 border-primary-500 mx-auto"
+            data-aos="zoom-in"
+            data-aos-duration="1000"
+            data-aos-delay="500"
+            style={{
+              width: "50%",
+              height: "2px",
+              margin: "auto",
+              backgroundColor: "#F7DF1E",
+            }}
+          />
         </div>
+
         <div className="pt-16">
-          <h2 className="pb-4 text-left">DEVELOPMENT SKILLS</h2>
-          <p className="text-left">
-            I am familiar and work on a daily basis with HTML, CSS, JavaScript,
-            Bootstrap, and other modern frameworks
+          <h2
+            className="pb-1 text-3xl font-semibold font-roboto text-left"
+            data-aos="fade-up-right"
+            data-aos-duration="1500"
+            data-aos-delay="600"
+          >
+            DEVELOPMENT SKILLS
+          </h2>
+          <p
+            className="text-left font-merriweather text-lg leading-relaxed"
+            data-aos="fade-up-right"
+            data-aos-duration="1500"
+            data-aos-delay="800"
+          >
+            I am familiar and work on a daily basis with!
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-12 pt-20">
-          {allSkills.map(({ icon: SkillIcon, name, rank }, index) => (
-            <div key={index} className="bg-white shadow-lg rounded-lg p-6">
-              {/* Flex container for icon and name, aligned to the left */}
+          {allSkills.map(({ icon: SkillIcon, skill, rank, color }, index) => (
+            <div
+              key={index}
+              className="bg-white shadow-lg rounded-lg p-6"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+              data-aos-anchor-placement="top-bottom"
+            >
               <div className="flex items-center mb-4">
-                <SkillIcon className="text-4xl mr-3" />
-                <h3 className="text-lg font-semibold text-left">{name}</h3>
+                <SkillIcon className="text-4xl mr-3" style={{ color }} />
+                <h3 className="text-lg font-semibold text-left">{skill}</h3>
               </div>
-              {/* Proficiency rank below, aligned to the left */}
               <div className="text-left">
                 <p>{rank}</p>
               </div>

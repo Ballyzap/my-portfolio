@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
+import { RiMenuFoldFill, RiMenuFold2Fill } from "react-icons/ri";
 import { navInfos, socialInfos } from "@/components/navs";
 import { usePathname } from "next/navigation";
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false); // Track if the page is scrolled
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   // Function to determine the active class
@@ -26,7 +27,6 @@ export const Header = () => {
     }
   };
 
-  // Attach the scroll event listener directly inside the component
   if (typeof window !== "undefined") {
     window.onscroll = handleScroll;
   }
@@ -43,11 +43,17 @@ export const Header = () => {
           {/* <img src="" alt="" /> */}
         </a>
 
+        {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
           className="lg:hidden p-2 border-0 bg-transparent ml-auto"
         >
-          <span className="text-white text-3xl">☰</span>
+          {/* Changing icon based on menu state */}
+          {menuOpen ? (
+            <RiMenuFold2Fill className="text-gray-400 text-3xl" />
+          ) : (
+            <RiMenuFoldFill className="text-gray-400 text-3xl" />
+          )}
         </button>
 
         {/* Menu hidden off-screen by default */}
