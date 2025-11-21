@@ -14,9 +14,6 @@ export const metadata: Metadata = {
   description: "My Portfolio ",
 };
 
-// Revalidate content every hour
-// export const revalidate = 3600;
-
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -1,18 +1,399 @@
+// "use client";
+// import React, { useState, useEffect } from "react";
+// import { RiMenuFoldFill, RiMenuFold2Fill } from "react-icons/ri";
+// import { navInfos, socialInfos } from "@/components/navs";
+// import { usePathname } from "next/navigation";
+
+// export const Header = () => {
+//   const [menuOpen, setMenuOpen] = useState(false);
+//   const [scrolled, setScrolled] = useState(false);
+//   const pathname = usePathname();
+
+//   // Function to determine the active class
+//   const getActiveClasses = (path: string) => {
+//     return pathname === path
+//       ? "text-underline decoration-secondary-300 text-primary-400 text-sm decoration-solid decoration-[2px] underline-offset-[8px]"
+//       : "hover:text-peach-500";
+//   };
+
+//   // Toggle mobile menu visibility
+//   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+//   const handleScroll = () => {
+//     if (window.scrollY > 30) {
+//       setScrolled(true);
+//     } else {
+//       setScrolled(false);
+//     }
+//   };
+
+//   // Detect viewport size changes and reset menuOpen for desktop view
+//   useEffect(() => {
+//     const handleResize = () => {
+//       // Assuming lg breakpoint is 1024px, adjust if your breakpoint differs
+//       if (window.innerWidth >= 1024) {
+//         setMenuOpen(false);
+//       }
+//     };
+
+//     // Run on mount to check initial viewport
+//     handleResize();
+
+//     window.addEventListener("resize", handleResize);
+
+//     return () => {
+//       window.removeEventListener("resize", handleResize);
+//     };
+//   }, []);
+
+//   // Scroll listener
+//   useEffect(() => {
+//     window.addEventListener("scroll", handleScroll);
+//     return () => {
+//       window.removeEventListener("scroll", handleScroll);
+//     };
+//   }, []);
+
+//   return (
+//     <nav
+//       className={`fixed top-0 left-0 right-0 z-10 transition-all duration-300 ease-in-out
+//         bg-primary-800
+//         ${scrolled ? "lg:bg-primary-800" : "lg:bg-transparent"}`}
+//     >
+//       <div className="mx-auto flex justify-between items-center py-4 px-6">
+//         {/* Image Logo */}
+//         <a className="navbar-brand logo-image" href="index.html">
+//           {/* <img src="" alt="" /> */}
+//         </a>
+
+//         {/* Mobile Menu Button */}
+//         <button
+//           onClick={toggleMenu}
+//           className="lg:hidden p-2 border-0 bg-transparent ml-auto"
+//         >
+//           {menuOpen ? (
+//             <RiMenuFold2Fill className="text-gray-400 text-3xl" />
+//           ) : (
+//             <RiMenuFoldFill className="text-gray-400 text-3xl" />
+//           )}
+//         </button>
+
+//         {/* Menu hidden off-screen by default */}
+//         <div
+//           className={`fixed top-[4.30rem] bottom-0 left-full w-full px-4 py-6 overflow-hidden bg-primary-800 transition-all duration-500 ease-in-out ${
+//             menuOpen
+//               ? "translate-x-[-100%] visible"
+//               : "invisible translate-x-full"
+//           }`}
+//         >
+//           <ul className="flex flex-col space-y-4">
+//             {navInfos.map(({ label, path }, idx) => (
+//               <li key={idx}>
+//                 <a
+//                   href={`${path}`}
+//                   className={`py-6 text-sm font-medium leading-6 ${getActiveClasses(
+//                     path
+//                   )}
+//                   ${
+//                     label === "About" ||
+//                     label === "Services" ||
+//                     label === "Projects" ||
+//                     label === "Contact"
+//                       ? "text-white"
+//                       : ""
+//                   }`}
+//                 >
+//                   {label}
+//                 </a>
+//               </li>
+//             ))}
+//           </ul>
+
+//           {/* Social Icons inside menu for mobile only */}
+//           <div className="mt-6 flex space-x-4">
+//             {socialInfos.map(({ href, icon: Icon, label }) => (
+//               <a key={label} href={href} className="" aria-label={label}>
+//                 <Icon className="h-7 w-7 text-white p-[8px] rounded-full bg-indigo hover:bg-white hover:text-indigo duration-200" />
+//               </a>
+//             ))}
+//           </div>
+//         </div>
+
+//         {/* Navbar links for large screens */}
+//         <div className="hidden lg:flex space-x-8">
+//           <ul className="flex space-x-8">
+//             {navInfos.map(({ label, path }, idx) => (
+//               <li key={idx}>
+//                 <a
+//                   href={`${path}`}
+//                   className={`py-6 text-sm font-medium leading-6 ${getActiveClasses(
+//                     path
+//                   )}
+//                     ${
+//                       label === "About" ||
+//                       label === "Services" ||
+//                       label === "Projects" ||
+//                       label === "Contact"
+//                         ? "lg:text-white"
+//                         : ""
+//                     }`}
+//                 >
+//                   {label}
+//                 </a>
+//               </li>
+//             ))}
+//           </ul>
+
+//           {/* Social Icons visible for large screen */}
+//           <div className="flex space-x-4 ml-auto">
+//             {socialInfos.map(({ href, icon: Icon, label }) => (
+//               <a key={label} href={href} className="" aria-label={label}>
+//                 <Icon className="h-7 w-7 text-white p-[8px] rounded-full bg-indigo hover:bg-white hover:text-indigo duration-200" />
+//               </a>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </nav>
+//   );
+// };
+
+// "use client";
+// import React, { useState, useEffect } from "react";
+// import { RiMenuFoldFill, RiMenuFold2Fill } from "react-icons/ri";
+// import { navInfos, socialInfos } from "@/components/navs";
+// import { usePathname } from "next/navigation";
+
+// export const Header = () => {
+//   const [menuOpen, setMenuOpen] = useState(false);
+//   const [scrolled, setScrolled] = useState(false);
+//   const [activeSection, setActiveSection] = useState("");
+//   const pathname = usePathname();
+
+//   // Function to determine the active class
+//   const getActiveClasses = (path: string) => {
+//     const isActive = pathname === path || activeSection === path;
+//     return isActive
+//       ? "text-underline decoration-secondary-300 text-primary-400 text-sm decoration-solid decoration-[2px] underline-offset-[8px]"
+//       : "hover:text-peach-500";
+//   };
+
+//   // Toggle mobile menu visibility
+//   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+//   const handleScroll = () => {
+//     if (window.scrollY > 30) {
+//       setScrolled(true);
+//     } else {
+//       setScrolled(false);
+//     }
+
+//     // Detect which section is in view
+//     const sections = document.querySelectorAll("section[id]");
+//     let currentSection = "";
+
+//     sections.forEach((section) => {
+//       const htmlSection = section as HTMLElement;
+//       const sectionTop = htmlSection.offsetTop;
+//       const sectionHeight = htmlSection.clientHeight;
+//       if (
+//         window.scrollY >= sectionTop - 100 &&
+//         window.scrollY < sectionTop + sectionHeight - 100
+//       ) {
+//         currentSection = `#${section.getAttribute("id")}`;
+//       }
+//     });
+
+//     setActiveSection(currentSection);
+//   };
+
+//   // Detect viewport size changes and reset menuOpen for desktop view
+//   useEffect(() => {
+//     const handleResize = () => {
+//       // Assuming lg breakpoint is 1024px, adjust if your breakpoint differs
+//       if (window.innerWidth >= 1024) {
+//         setMenuOpen(false);
+//       }
+//     };
+
+//     // Run on mount to check initial viewport
+//     handleResize();
+
+//     window.addEventListener("resize", handleResize);
+
+//     return () => {
+//       window.removeEventListener("resize", handleResize);
+//     };
+//   }, []);
+
+//   // Scroll listener
+//   useEffect(() => {
+//     window.addEventListener("scroll", handleScroll);
+//     return () => {
+//       window.removeEventListener("scroll", handleScroll);
+//     };
+//   }, []);
+
+//   return (
+//     <nav
+//       className={`fixed top-0 left-0 right-0 z-10 transition-all duration-300 ease-in-out
+//         bg-primary-800
+//         ${scrolled ? "lg:bg-primary-800" : "lg:bg-transparent"}`}
+//     >
+//       <div className="mx-auto flex justify-between items-center py-4 px-6">
+//         {/* Image Logo */}
+//         <a className="navbar-brand logo-image" href="index.html">
+//           {/* <img src="" alt="" /> */}
+//         </a>
+
+//         {/* Mobile Menu Button */}
+//         <button
+//           onClick={toggleMenu}
+//           className="lg:hidden p-2 border-0 bg-transparent ml-auto"
+//         >
+//           {menuOpen ? (
+//             <RiMenuFold2Fill className="text-gray-400 text-3xl" />
+//           ) : (
+//             <RiMenuFoldFill className="text-gray-400 text-3xl" />
+//           )}
+//         </button>
+
+//         {/* Menu hidden off-screen by default */}
+//         <div
+//           className={`fixed top-[4.30rem] bottom-0 left-full w-full px-4 py-6 overflow-hidden bg-primary-800 transition-all duration-500 ease-in-out ${
+//             menuOpen
+//               ? "translate-x-[-100%] visible"
+//               : "invisible translate-x-full"
+//           }`}
+//         >
+//           <ul className="flex flex-col space-y-4">
+//             {navInfos.map(({ label, path }, idx) => (
+//               <li key={idx}>
+//                 <a
+//                   href={`${path}`}
+//                   className={`py-6 text-sm font-medium leading-6 ${getActiveClasses(
+//                     path
+//                   )}
+//                   ${
+//                     label === "About" ||
+//                     label === "Services" ||
+//                     label === "Projects" ||
+//                     label === "Contact"
+//                       ? "text-white"
+//                       : ""
+//                   } transition-all duration-300`}
+//                   style={{
+//                     filter:
+//                       pathname !== path && activeSection !== path
+//                         ? "drop-shadow(0 0 0px rgba(251, 146, 60, 0))"
+//                         : "none",
+//                     transition: "all 0.3s ease",
+//                   }}
+//                   onMouseEnter={(e) => {
+//                     if (pathname !== path && activeSection !== path) {
+//                       e.currentTarget.style.filter =
+//                         "drop-shadow(0 0 20px rgba(251, 146, 60, 0.9)) drop-shadow(0 0 40px rgba(251, 146, 60, 0.6))";
+//                     }
+//                   }}
+//                   onMouseLeave={(e) => {
+//                     if (pathname !== path && activeSection !== path) {
+//                       e.currentTarget.style.filter =
+//                         "drop-shadow(0 0 0px rgba(251, 146, 60, 0))";
+//                     }
+//                   }}
+//                 >
+//                   {label}
+//                 </a>
+//               </li>
+//             ))}
+//           </ul>
+
+//           {/* Social Icons inside menu for mobile only */}
+//           <div className="mt-6 flex space-x-4">
+//             {socialInfos.map(({ href, icon: Icon, label }) => (
+//               <a key={label} href={href} className="" aria-label={label}>
+//                 <Icon className="h-7 w-7 text-white p-[8px] rounded-full bg-indigo hover:bg-white hover:text-indigo duration-200" />
+//               </a>
+//             ))}
+//           </div>
+//         </div>
+
+//         {/* Navbar links for large screens */}
+//         <div className="hidden lg:flex space-x-8">
+//           <ul className="flex space-x-8">
+//             {navInfos.map(({ label, path }, idx) => (
+//               <li key={idx}>
+//                 <a
+//                   href={`${path}`}
+//                   className={`py-6 text-sm font-medium leading-6 ${getActiveClasses(
+//                     path
+//                   )}
+//                     ${
+//                       label === "About" ||
+//                       label === "Services" ||
+//                       label === "Projects" ||
+//                       label === "Contact"
+//                         ? "lg:text-white"
+//                         : ""
+//                     } transition-all duration-300`}
+//                   style={{
+//                     filter:
+//                       pathname !== path && activeSection !== path
+//                         ? "drop-shadow(0 0 0px rgba(251, 146, 60, 0))"
+//                         : "none",
+//                     transition: "all 0.3s ease",
+//                   }}
+//                   onMouseEnter={(e) => {
+//                     if (pathname !== path && activeSection !== path) {
+//                       e.currentTarget.style.filter =
+//                         "drop-shadow(0 0 20px rgba(251, 146, 60, 0.9)) drop-shadow(0 0 40px rgba(251, 146, 60, 0.6))";
+//                     }
+//                   }}
+//                   onMouseLeave={(e) => {
+//                     if (pathname !== path && activeSection !== path) {
+//                       e.currentTarget.style.filter =
+//                         "drop-shadow(0 0 0px rgba(251, 146, 60, 0))";
+//                     }
+//                   }}
+//                 >
+//                   {label}
+//                 </a>
+//               </li>
+//             ))}
+//           </ul>
+
+//           {/* Social Icons visible for large screen */}
+//           <div className="flex space-x-4 ml-auto">
+//             {socialInfos.map(({ href, icon: Icon, label }) => (
+//               <a key={label} href={href} className="" aria-label={label}>
+//                 <Icon className="h-7 w-7 text-white p-[8px] rounded-full bg-indigo hover:bg-white hover:text-indigo duration-200" />
+//               </a>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </nav>
+//   );
+// };
+
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { RiMenuFoldFill, RiMenuFold2Fill } from "react-icons/ri";
 import { navInfos, socialInfos } from "@/components/navs";
 import { usePathname } from "next/navigation";
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false); // Track if the page is scrolled
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const pathname = usePathname();
 
   // Function to determine the active class
   const getActiveClasses = (path: string) => {
-    return pathname === path
-      ? "text-underline decoration-secondary-300 text-primary-400 text-sm decoration-solid decoration-[2px] underline-offset-[8px]"
-      : "hover:text-primary-400";
+    const isActive = pathname === path || activeSection === path;
+    return isActive
+      ? "text-peach-500 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-gradient-to-r after:from-peach-500 after:via-purple-500 after:to-blue-500 after:animate-pulse"
+      : "hover:text-peach-500";
   };
 
   // Toggle mobile menu visibility
@@ -24,12 +405,52 @@ export const Header = () => {
     } else {
       setScrolled(false);
     }
+
+    // Detect which section is in view
+    const sections = document.querySelectorAll("section[id]");
+    let currentSection = "";
+
+    sections.forEach((section) => {
+      const htmlSection = section as HTMLElement;
+      const sectionTop = htmlSection.offsetTop;
+      const sectionHeight = htmlSection.clientHeight;
+      if (
+        window.scrollY >= sectionTop - 150 &&
+        window.scrollY < sectionTop + sectionHeight - 150
+      ) {
+        currentSection = `#${section.getAttribute("id")}`;
+      }
+    });
+
+    setActiveSection(currentSection);
   };
 
-  // Attach the scroll event listener directly inside the component
-  if (typeof window !== "undefined") {
-    window.onscroll = handleScroll;
-  }
+  // Detect viewport size changes and reset menuOpen for desktop view
+  useEffect(() => {
+    const handleResize = () => {
+      // Assuming lg breakpoint is 1024px, adjust if your breakpoint differs
+      if (window.innerWidth >= 1024) {
+        setMenuOpen(false);
+      }
+    };
+
+    // Run on mount to check initial viewport
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // Scroll listener
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <nav
@@ -43,24 +464,61 @@ export const Header = () => {
           {/* <img src="" alt="" /> */}
         </a>
 
+        {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
           className="lg:hidden p-2 border-0 bg-transparent ml-auto"
         >
-          <span className="text-white text-3xl">☰</span>
+          {menuOpen ? (
+            <RiMenuFold2Fill className="text-gray-400 text-3xl" />
+          ) : (
+            <RiMenuFoldFill className="text-gray-400 text-3xl" />
+          )}
         </button>
 
         {/* Menu hidden off-screen by default */}
         <div
-          className={`fixed top-[4.30rem] bottom-0 left-full w-full px-4 py-6 overflow-hidden bg-primary-800 transition-all duration-500 ease-in-out ${menuOpen ? "translate-x-[-100%] visible" : "invisible translate-x-full"}`}
+          className={`fixed top-[4.30rem] bottom-0 left-full w-full px-4 py-6 overflow-hidden bg-primary-800 transition-all duration-500 ease-in-out ${
+            menuOpen
+              ? "translate-x-[-100%] visible"
+              : "invisible translate-x-full"
+          }`}
         >
           <ul className="flex flex-col space-y-4">
             {navInfos.map(({ label, path }, idx) => (
               <li key={idx}>
                 <a
                   href={`${path}`}
-                  className={`py-6 text-sm font-medium leading-6 ${getActiveClasses(path)} 
-                  ${label === "About" || label === "Services" || label === "Contact" ? "text-white" : ""}`}
+                  className={`text-sm font-medium leading-6 ${getActiveClasses(
+                    path
+                  )}
+                  ${
+                    label === "About" ||
+                    label === "Services" ||
+                    label === "Projects" ||
+                    label === "Contact"
+                      ? "text-white"
+                      : ""
+                  } transition-all duration-300`}
+                  style={{
+                    filter:
+                      pathname !== path && activeSection !== path
+                        ? "drop-shadow(0 0 0px rgba(251, 146, 60, 0))"
+                        : "none",
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (pathname !== path && activeSection !== path) {
+                      e.currentTarget.style.filter =
+                        "drop-shadow(0 0 20px rgba(251, 146, 60, 0.9)) drop-shadow(0 0 40px rgba(251, 146, 60, 0.6))";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (pathname !== path && activeSection !== path) {
+                      e.currentTarget.style.filter =
+                        "drop-shadow(0 0 0px rgba(251, 146, 60, 0))";
+                    }
+                  }}
                 >
                   {label}
                 </a>
@@ -72,7 +530,7 @@ export const Header = () => {
           <div className="mt-6 flex space-x-4">
             {socialInfos.map(({ href, icon: Icon, label }) => (
               <a key={label} href={href} className="" aria-label={label}>
-                <Icon className="h-7 w-7 text-white p-[8px] rounded-full bg-secondary-500 hover:bg-white hover:text-secondary-500 duration-200" />
+                <Icon className="h-7 w-7 text-gray-300 rounded-full p-[8px]  bg-slate-800 hover:bg-peach-500 hover:text-white transition-all duration-300 hover:scale-110" />
               </a>
             ))}
           </div>
@@ -85,8 +543,36 @@ export const Header = () => {
               <li key={idx}>
                 <a
                   href={`${path}`}
-                  className={`py-6 text-sm font-medium leading-6 ${getActiveClasses(path)} 
-                    ${label === "About" || label === "Services" || label === "Contact" ? "lg:text-white" : ""}`}
+                  className={`text-sm font-medium leading-6 ${getActiveClasses(
+                    path
+                  )}
+                    ${
+                      label === "About" ||
+                      label === "Services" ||
+                      label === "Projects" ||
+                      label === "Contact"
+                        ? "lg:text-white"
+                        : ""
+                    } transition-all duration-300`}
+                  style={{
+                    filter:
+                      pathname !== path && activeSection !== path
+                        ? "drop-shadow(0 0 0px rgba(251, 146, 60, 0))"
+                        : "none",
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (pathname !== path && activeSection !== path) {
+                      e.currentTarget.style.filter =
+                        "drop-shadow(0 0 20px rgba(251, 146, 60, 0.9)) drop-shadow(0 0 40px rgba(251, 146, 60, 0.6))";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (pathname !== path && activeSection !== path) {
+                      e.currentTarget.style.filter =
+                        "drop-shadow(0 0 0px rgba(251, 146, 60, 0))";
+                    }
+                  }}
                 >
                   {label}
                 </a>
@@ -98,7 +584,7 @@ export const Header = () => {
           <div className="flex space-x-4 ml-auto">
             {socialInfos.map(({ href, icon: Icon, label }) => (
               <a key={label} href={href} className="" aria-label={label}>
-                <Icon className="h-7 w-7 text-white p-[8px] rounded-full bg-secondary-500 hover:bg-white hover:text-secondary-500 duration-200" />
+                <Icon className="h-7 w-7 p-[8px] text-gray-300 rounded-full bg-slate-800 hover:bg-peach-500 hover:text-white transition-all duration-300 hover:scale-110" />
               </a>
             ))}
           </div>
