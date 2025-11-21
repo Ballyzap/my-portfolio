@@ -72,13 +72,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-  }
-}
-
-@layer prose-m-none {
-  * {
-    @apply prose-headings:m-0;
+    @apply bg-slate-900 text-foreground;
   }
 }
 
@@ -91,9 +85,12 @@
   /* Hide scrollbar for IE, Edge and Firefox */
   .no-scrollbar {
     -ms-overflow-style: none;
-    /* IE and Edge */
     scrollbar-width: none;
-    /* Firefox */
+  }
+
+  /* Smooth scrolling for entire site */
+  html {
+    scroll-behavior: smooth;
   }
 }
 
@@ -133,5 +130,10 @@
 @layer components {
   .portfolio-container {
     @apply mx-auto max-w-6xl px-6;
+  }
+
+  /* Enhanced button styles */
+  .btn-primary {
+    @apply bg-peach-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-peach-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-peach-500/50;
   }
 }
