@@ -1,223 +1,3 @@
-// "use client";
-
-// import { useEffect } from "react";
-// import { IoIosContact } from "react-icons/io";
-// import AOS from "aos";
-// import "aos/dist/aos.css";
-
-// export const HomeHero = () => {
-//   useEffect(() => {
-//     AOS.init();
-//   }, []);
-
-//   return (
-//     <section className="relative bg-cover bg-center bg-no-repeat bg-sky-pattern bg-opacity-60 w-full h-screen">
-//       <div className="hero-overlay">
-//         <div className="portfolio-container py-52">
-//           <div
-//             className="justify-center sm:justify-start"
-//             data-aos="zoom-in-right"
-//             data-aos-duration="2000"
-//           >
-//             <h1 className="text-text-primary text-5xl sm:text-7xl font-bold font-serif text-center sm:text-left">
-//               I love to create <br /> beautiful and <br /> efficient websites
-//             </h1>
-//           </div>
-//           <div
-//             className="flex flex-row gap-5 mt-8"
-//             data-aos="flip-left"
-//             data-aos-easing="ease-out-cubic"
-//             data-aos-duration="2000"
-//           >
-//             <div className="btn-primary w-32 sm:w-40 border border-transparent hover:border-text-primary">
-//               <button className="font-roboto text-text-primary w-full">
-//                 Discover
-//               </button>
-//             </div>
-//             <div
-//               className="hover:text-peach-500 flex items-center justify-center gap-1 text-text-primary w-32 sm:w-40 cursor-pointer transition-all"
-//               data-aos="flip-left"
-//               data-aos-easing="ease-out-cubic"
-//               data-aos-duration="2000"
-//             >
-//               <div className="py-2">
-//                 <IoIosContact />
-//               </div>
-//               <div className="font-roboto">Contact Me</div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// "use client";
-
-// import { useEffect } from "react";
-// import { HiDownload } from "react-icons/hi";
-// import { FiArrowRight } from "react-icons/fi";
-// import AOS from "aos";
-// import "aos/dist/aos.css";
-
-// export const HomeHero = () => {
-//   useEffect(() => {
-//     AOS.init();
-//   }, []);
-
-//   const handleDownloadCV = () => {
-//     const cvUrl = "/assets/cv/Joshua_Bala_Noma_CV.pdf";
-//     const link = document.createElement("a");
-//     link.href = cvUrl;
-//     link.download = "Joshua_Bala_Noma_CV.pdf";
-//     document.body.appendChild(link);
-//     link.click();
-//     document.body.removeChild(link);
-//   };
-
-//   return (
-//     <section className="relative bg-slate-950 w-full min-h-screen flex items-center overflow-hidden">
-//       {/* Diagonal stripe background */}
-//       <div className="absolute inset-0 opacity-5">
-//         <div
-//           className="absolute inset-0"
-//           style={{
-//             backgroundImage:
-//               "repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px)",
-//           }}
-//         ></div>
-//       </div>
-
-//       {/* Large peach accent shape - top right */}
-//       <div className="absolute -top-40 -right-40 w-80 h-80 md:w-96 md:h-96 bg-peach-500/10 rounded-full blur-3xl"></div>
-
-//       {/* Small indigo accent shape - bottom left */}
-//       <div className="absolute -bottom-20 -left-20 w-60 h-60 md:w-80 md:h-80 bg-indigo-600/10 rounded-full blur-3xl"></div>
-
-//       {/* Animated dots */}
-//       <div className="absolute top-1/4 right-1/4 w-2 h-2 bg-peach-500/40 rounded-full animate-ping"></div>
-//       <div
-//         className="absolute bottom-1/3 left-1/3 w-2 h-2 bg-peach-500/40 rounded-full animate-ping"
-//         style={{ animationDelay: "1s" }}
-//       ></div>
-
-//       <div className="relative portfolio-container w-full py-20 md:py-0">
-//         <div className="flex flex-col justify-center min-h-[calc(100vh-10rem)]">
-//           {/* Badge */}
-//           <div
-//             className="mb-6 md:mb-8"
-//             data-aos="fade-down"
-//             data-aos-duration="1000"
-//           >
-//             <span className="inline-block px-4 py-2 bg-peach-500/10 border border-peach-500/30 rounded-full text-peach-500 text-xs md:text-sm font-semibold tracking-wider">
-//               FULL-STACK DEVELOPER
-//             </span>
-//           </div>
-
-//           {/* Main heading */}
-//           <div
-//             className="mb-6 md:mb-8"
-//             data-aos="fade-up"
-//             data-aos-duration="1200"
-//             data-aos-delay="200"
-//           >
-//             <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-//               Building Digital
-//               <br />
-//               <span className="text-peach-500">Experiences</span> That
-//               <br />
-//               Matter
-//             </h1>
-//           </div>
-
-//           {/* Subheading */}
-//           <div
-//             className="mb-8 md:mb-10"
-//             data-aos="fade-up"
-//             data-aos-duration="1200"
-//             data-aos-delay="400"
-//           >
-//             <p className="text-gray-400 text-base md:text-lg lg:text-xl max-w-xl leading-relaxed">
-//               I transform ideas into elegant, scalable web solutions using
-//               modern technologies and best practices.
-//             </p>
-//           </div>
-
-//           {/* CTA Buttons */}
-//           <div
-//             className="flex flex-col sm:flex-row gap-4 md:gap-5"
-//             data-aos="fade-up"
-//             data-aos-duration="1200"
-//             data-aos-delay="600"
-//           >
-//             <button
-//               onClick={handleDownloadCV}
-//               className="group relative px-6 md:px-8 py-3 md:py-4 bg-peach-500 text-white font-semibold rounded-lg transition-all duration-300 hover:bg-peach-600 hover:shadow-xl hover:shadow-peach-500/30 flex items-center justify-center gap-3"
-//             >
-//               <HiDownload className="text-lg md:text-xl group-hover:animate-bounce" />
-//               <span className="text-sm md:text-base">Download Resume</span>
-//             </button>
-
-//             <a
-//               href="#contact"
-//               className="group px-6 md:px-8 py-3 md:py-4 border-2 border-slate-700 text-white font-semibold rounded-lg transition-all duration-300 hover:border-peach-500 hover:bg-peach-500/5 flex items-center justify-center gap-3"
-//             >
-//               <span className="text-sm md:text-base">Get In Touch</span>
-//               <FiArrowRight className="text-lg md:text-xl group-hover:translate-x-1 transition-transform duration-300" />
-//             </a>
-//           </div>
-
-//           {/* Stats or info badges */}
-//           <div
-//             className="flex flex-wrap gap-6 md:gap-8 mt-12 md:mt-16"
-//             data-aos="fade-up"
-//             data-aos-duration="1200"
-//             data-aos-delay="800"
-//           >
-//             <div className="flex flex-col">
-//               <span className="text-2xl md:text-3xl font-bold text-white">
-//                 1+
-//               </span>
-//               <span className="text-xs md:text-sm text-gray-400 mt-1">
-//                 Years Experience
-//               </span>
-//             </div>
-//             <div className="w-px h-12 bg-slate-800"></div>
-//             <div className="flex flex-col">
-//               <span className="text-2xl md:text-3xl font-bold text-white">
-//                 20+
-//               </span>
-//               <span className="text-xs md:text-sm text-gray-400 mt-1">
-//                 Projects Completed
-//               </span>
-//             </div>
-//             <div className="w-px h-12 bg-slate-800"></div>
-//             <div className="flex flex-col">
-//               <span className="text-2xl md:text-3xl font-bold text-white">
-//                 100%
-//               </span>
-//               <span className="text-xs md:text-sm text-gray-400 mt-1">
-//                 Client Satisfaction
-//               </span>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Decorative line element */}
-//       <div className="hidden lg:block absolute right-0 top-1/2 transform -translate-y-1/2">
-//         <div className="flex flex-col items-center gap-4 pr-8">
-//           <div className="w-px h-20 bg-gradient-to-b from-transparent via-peach-500 to-transparent"></div>
-//           <span className="text-xs text-gray-500 writing-mode-vertical transform rotate-180 tracking-widest">
-//             SCROLL
-//           </span>
-//           <div className="w-px h-20 bg-gradient-to-b from-transparent via-peach-500 to-transparent"></div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
 "use client";
 
 import { useEffect } from "react";
@@ -232,10 +12,10 @@ export const HomeHero = () => {
   }, []);
 
   const handleDownloadCV = () => {
-    const cvUrl = "/assets/cv/Joshua_Bala_Noma_CV.pdf";
+    // const cvUrl = "/assets/cv/Joshua_Bala_Noma_CV.pdf";
     const link = document.createElement("a");
-    link.href = cvUrl;
-    link.download = "Joshua_Bala_Noma_CV.pdf";
+    // link.href = cvUrl;
+    // link.download = "Joshua_Bala_Noma_CV.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -404,7 +184,7 @@ export const HomeHero = () => {
           >
             <div className="flex flex-col">
               <span className="text-2xl md:text-3xl font-bold text-white">
-                3+
+                1+
               </span>
               <span className="text-xs md:text-sm text-gray-400 mt-1">
                 Years Experience
@@ -413,7 +193,7 @@ export const HomeHero = () => {
             <div className="w-px h-12 bg-slate-800"></div>
             <div className="flex flex-col">
               <span className="text-2xl md:text-3xl font-bold text-white">
-                20+
+                5+
               </span>
               <span className="text-xs md:text-sm text-gray-400 mt-1">
                 Projects Completed
