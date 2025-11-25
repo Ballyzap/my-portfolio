@@ -104,12 +104,14 @@ export const Header = () => {
 
         {/* Menu hidden off-screen by default */}
         <div
-          className={`fixed top-[4.30rem] bottom-0 left-full w-full px-4 py-6 overflow-hidden bg-primary-800 transition-all duration-500 ease-in-out z-40 ${
+          className={`fixed top-0 bottom-0 left-full w-full px-4 py-6 overflow-hidden bg-primary-800 transition-all duration-500 ease-in-out z-40 ${
             menuOpen
               ? "translate-x-[-100%] visible"
               : "invisible translate-x-full"
           }`}
         >
+          {/* Spacer to account for header height */}
+          <div className="h-[4.30rem]"></div>
           <ul className="flex flex-col space-y-4">
             {navInfos.map(({ label, path }, idx) => (
               <li key={idx}>

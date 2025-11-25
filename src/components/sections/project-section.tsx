@@ -200,22 +200,53 @@ export const ProjectSection = () => {
           {/* Mobile View */}
           {isMobile ? (
             <div
-              className="relative"
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
+              className="relative touch-pan-y"
+              onTouchStart={(e) => {
+                setIsHovering(true);
+                const touch = e.touches[0];
+                const startX = touch.clientX;
+
+                const handleTouchMove = (e: TouchEvent) => {
+                  const touch = e.touches[0];
+                  const diff = startX - touch.clientX;
+
+                  if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                      handleNext();
+                    } else {
+                      handlePrev();
+                    }
+                    document.removeEventListener("touchmove", handleTouchMove);
+                    document.removeEventListener("touchend", handleTouchEnd);
+                  }
+                };
+
+                const handleTouchEnd = () => {
+                  setIsHovering(false);
+                  document.removeEventListener("touchmove", handleTouchMove);
+                  document.removeEventListener("touchend", handleTouchEnd);
+                };
+
+                document.addEventListener("touchmove", handleTouchMove);
+                document.addEventListener("touchend", handleTouchEnd);
+              }}
             >
               <div className="relative overflow-hidden">
-                <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-950/70 via-slate-950/30 to-transparent z-10 pointer-events-none"></div>
-                <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-slate-950/70 via-slate-950/30 to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-950/90 via-slate-950/50 to-transparent z-10 pointer-events-none"></div>
 
-                <div className="relative h-[550px] flex items-center justify-center">
+                <div className="relative h-[550px] flex items-center justify-center px-4">
                   <motion.div
                     key={currentIndex}
                     initial={{ x: 300, opacity: 0, scale: 0.9 }}
                     animate={{ x: 0, opacity: 1, scale: 1 }}
                     exit={{ x: -300, opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="absolute w-[85vw] max-w-[380px]"
+                    transition={{
+                      duration: 0.5,
+                      ease: "easeInOut",
+                      opacity: { duration: 0.3 },
+                    }}
+                    className="absolute w-[90vw] max-w-[380px]"
                   >
                     <ProjectCard
                       project={filteredProjects[currentIndex]}
@@ -223,27 +254,35 @@ export const ProjectSection = () => {
                     />
                   </motion.div>
                 </div>
-
-                <motion.button
-                  onClick={handlePrev}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-4 bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-md rounded-full text-white border border-slate-700 hover:border-peach-500 transition-all duration-300 shadow-2xl group"
-                  whileHover={{ scale: 1.1, x: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FiChevronLeft className="text-2xl text-gray-300 group-hover:text-peach-500 transition-colors duration-300" />
-                </motion.button>
-
-                <motion.button
-                  onClick={handleNext}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-4 bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-md rounded-full text-white border border-slate-700 hover:border-peach-500 transition-all duration-300 shadow-2xl group"
-                  whileHover={{ scale: 1.1, x: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FiChevronRight className="text-2xl text-gray-300 group-hover:text-peach-500 transition-colors duration-300" />
-                </motion.button>
               </div>
 
               <div className="mt-8 flex flex-col items-center gap-6">
+                {/* Swipe indicator */}
+                <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
+                  <motion.div
+                    animate={{ x: [-10, 10, -10] }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <FiChevronLeft className="text-lg" />
+                  </motion.div>
+                  <span className="font-medium">Swipe to navigate</span>
+                  <motion.div
+                    animate={{ x: [-10, 10, -10] }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <FiChevronRight className="text-lg" />
+                  </motion.div>
+                </div>
+
+                {/* Dots indicator */}
                 <div className="flex gap-3 items-center">
                   {filteredProjects.map((_, index) => (
                     <motion.button
@@ -252,15 +291,23 @@ export const ProjectSection = () => {
                       className={`relative transition-all duration-300 rounded-full ${
                         index === currentIndex ? "w-12 h-3" : "w-3 h-3"
                       }`}
-                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       {index === currentIndex ? (
-                        <div className="absolute inset-0 bg-gradient-to-r from-peach-500 via-purple-500 to-blue-500 rounded-full" />
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-peach-500 via-purple-500 to-blue-500 rounded-full"
+                          layoutId="activeSlide"
+                        />
                       ) : (
-                        <div className="absolute inset-0 bg-slate-700 hover:bg-slate-600 rounded-full" />
+                        <div className="absolute inset-0 bg-slate-700 rounded-full" />
                       )}
                     </motion.button>
                   ))}
+                </div>
+
+                {/* Progress indicator */}
+                <div className="text-gray-500 text-sm font-medium">
+                  {currentIndex + 1} / {filteredProjects.length}
                 </div>
               </div>
             </div>
