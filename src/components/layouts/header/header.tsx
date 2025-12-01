@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { RiMenuFoldFill, RiMenuFold2Fill } from "react-icons/ri";
 import { navInfos, socialInfos } from "@/components/navs";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -82,18 +83,30 @@ export const Header = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out
-        ${scrolled ? "bg-primary-800" : "bg-transparent"}`}
+        ${scrolled ? "bg-slate-900/95 backdrop-blur-md shadow-lg" : "bg-transparent"}`}
     >
-      <div className="mx-auto flex justify-between items-center py-4 px-6">
-        {/* Image Logo */}
-        <a className="navbar-brand logo-image" href="index.html">
-          {/* <img src="" alt="" /> */}
+      <div className="mx-auto flex justify-between items-center py-4 px-6 max-w-7xl">
+        {/* Logo Section */}
+        <a
+          className="navbar-brand logo-image flex items-center z-50"
+          href="#home"
+          aria-label="Home"
+        >
+          <Image
+            src="/assets/image/logo.png"
+            alt="Joshua Bala Noma Logo"
+            width={120}
+            height={40}
+            className="h-10 w-auto"
+            priority
+          />
         </a>
 
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
           className="lg:hidden p-2 border-0 bg-transparent ml-auto z-50"
+          aria-label="Toggle menu"
         >
           {menuOpen ? (
             <RiMenuFold2Fill className="text-gray-400 text-3xl" />
@@ -102,9 +115,9 @@ export const Header = () => {
           )}
         </button>
 
-        {/* Menu hidden off-screen by default */}
+        {/* Mobile Menu - hidden off-screen by default */}
         <div
-          className={`fixed top-0 bottom-0 left-full w-full px-4 py-6 overflow-hidden bg-primary-800 transition-all duration-500 ease-in-out z-40 ${
+          className={`fixed top-0 bottom-0 left-full w-full px-4 py-6 overflow-hidden bg-slate-900/98 backdrop-blur-lg transition-all duration-500 ease-in-out z-40 ${
             menuOpen
               ? "translate-x-[-100%] visible"
               : "invisible translate-x-full"
@@ -150,15 +163,22 @@ export const Header = () => {
           {/* Social Icons inside menu for mobile only */}
           <div className="mt-6 flex space-x-4">
             {socialInfos.map(({ href, icon: Icon, label }) => (
-              <a key={label} href={href} className="" aria-label={label}>
-                <Icon className="h-7 w-7 text-gray-300 rounded-full p-[8px]  bg-slate-800 hover:bg-peach-500 hover:text-white transition-all duration-300 hover:scale-110" />
+              <a
+                key={label}
+                href={href}
+                className=""
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon className="h-7 w-7 text-gray-300 rounded-full p-[8px] bg-slate-800 hover:bg-peach-500 hover:text-white transition-all duration-300 hover:scale-110" />
               </a>
             ))}
           </div>
         </div>
 
-        {/* Navbar links for large screens */}
-        <div className="hidden lg:flex space-x-8">
+        {/* Desktop Navbar links */}
+        <div className="hidden lg:flex space-x-8 items-center">
           <ul className="flex space-x-8">
             {navInfos.map(({ label, path }, idx) => (
               <li key={idx}>
@@ -194,9 +214,16 @@ export const Header = () => {
           </ul>
 
           {/* Social Icons visible for large screen */}
-          <div className="flex space-x-4 ml-auto">
+          <div className="flex space-x-4 ml-4">
             {socialInfos.map(({ href, icon: Icon, label }) => (
-              <a key={label} href={href} className="" aria-label={label}>
+              <a
+                key={label}
+                href={href}
+                className=""
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Icon className="h-7 w-7 p-[8px] text-gray-300 rounded-full bg-slate-800 hover:bg-peach-500 hover:text-white transition-all duration-300 hover:scale-110" />
               </a>
             ))}

@@ -12,8 +12,6 @@ import { FaWordpress } from "react-icons/fa";
 import { SiNodedotjs } from "react-icons/si";
 import { SiPostgresql } from "react-icons/si";
 import { FaGithub } from "react-icons/fa";
-import { FaPython } from "react-icons/fa";
-import { FaJava } from "react-icons/fa";
 import { IconType } from "react-icons";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -70,16 +68,6 @@ export const SkillSection = () => {
       icon: (props) => <SiPostgresql {...props} />,
       skill: "PostgreSQL",
       color: "#336791",
-    },
-    {
-      icon: (props) => <FaPython {...props} />,
-      skill: "Python",
-      color: "#3776AB",
-    },
-    {
-      icon: (props) => <FaJava {...props} />,
-      skill: "Java",
-      color: "#007396",
     },
     {
       icon: (props) => <FaWordpress {...props} />,
