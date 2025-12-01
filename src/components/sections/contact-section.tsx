@@ -6,6 +6,59 @@ export const ContactSection = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      const formspreeUrl = process.env.NEXT_PUBLIC_FORMSPREE_URL;
+
+      if (!formspreeUrl) {
+        console.error("Formspree URL not configured");
+        setSubmitStatus("error");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const response = await fetch(formspreeUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        // Clear form fields
+        setName("");
+        setEmail("");
+        setMessage("");
+
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus("idle");
+        }, 5000);
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="relative bg-slate-900 overflow-hidden">
@@ -95,11 +148,12 @@ export const ContactSection = () => {
           </div>
 
           <div className="w-full max-w-2xl mx-auto bg-slate-800/60 backdrop-blur-sm border border-slate-700 rounded-xl shadow-2xl p-8">
-            <form id="contactForm">
+            <form onSubmit={handleSubmit}>
               <div className="mb-6 relative">
                 <input
                   type="text"
                   id="name"
+                  name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
@@ -122,6 +176,7 @@ export const ContactSection = () => {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -143,6 +198,7 @@ export const ContactSection = () => {
               <div className="mb-6 relative">
                 <textarea
                   id="message"
+                  name="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   required
@@ -162,12 +218,87 @@ export const ContactSection = () => {
                 </label>
               </div>
 
+              {/* Success/Error Messages */}
+              {submitStatus === "success" && (
+                <div className="mb-6 p-5 bg-emerald-500/20 border-2 border-emerald-400 rounded-lg shadow-lg shadow-emerald-500/20 animate-fade-in">
+                  <div className="flex items-center justify-center gap-3">
+                    <svg
+                      className="w-6 h-6 text-emerald-400 flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <p className="text-white text-base font-bold">
+                      Message sent successfully! I&apos;ll get back to you soon.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {submitStatus === "error" && (
+                <div className="mb-6 p-5 bg-red-500/20 border-2 border-red-400 rounded-lg shadow-lg shadow-red-500/20 animate-fade-in">
+                  <div className="flex items-center justify-center gap-3">
+                    <svg
+                      className="w-6 h-6 text-red-400 flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <p className="text-white text-base font-bold">
+                      Oops! Something went wrong. Please try again or email me
+                      directly.
+                    </p>
+                  </div>
+                </div>
+              )}
+
               <div className="mb-6">
                 <button
                   type="submit"
-                  className="w-full bg-peach-500 text-white px-6 py-4 rounded-lg font-semibold hover:bg-peach-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-peach-500/50 focus:outline-none focus:ring-2 focus:ring-peach-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+                  disabled={isSubmitting}
+                  className="w-full bg-peach-500 text-white px-6 py-4 rounded-lg font-semibold hover:bg-peach-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-peach-500/50 focus:outline-none focus:ring-2 focus:ring-peach-500 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <svg
+                        className="animate-spin h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Sending...
+                    </span>
+                  ) : (
+                    "Send Message"
+                  )}
                 </button>
               </div>
             </form>
