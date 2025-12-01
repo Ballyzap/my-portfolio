@@ -12,17 +12,20 @@ export const HomeHero = () => {
   }, []);
 
   const handleDownloadCV = () => {
-    // const cvUrl = "/assets/cv/Joshua_Bala_Noma_CV.pdf";
+    // Make sure you have your CV at: /public/assets/cv/Joshua_Bala_Noma_CV.pdf
+    const cvUrl = "/assets/cv/Joshua_Bala_Noma_CV.pdf";
     const link = document.createElement("a");
-    // link.href = cvUrl;
-    // link.download = "Joshua_Bala_Noma_CV.pdf";
+    link.href = cvUrl;
+    link.download = "Joshua_Bala_Noma_CV.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
   return (
-    <section className="relative bg-slate-950 w-full min-h-screen flex items-center overflow-hidden">
+    <section className="relative bg-slate-950 w-full min-h-screen flex items-center overflow-hidden pt-20">
+      {/* Added pt-20 (80px) to create space for the fixed navbar */}
+
       {/* Diagonal stripe background */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -175,7 +178,7 @@ export const HomeHero = () => {
             </a>
           </div>
 
-          {/* Stats or info badges */}
+          {/* Stats or info badges - TODO: Update these numbers from your CV */}
           <div
             className="flex flex-wrap gap-6 md:gap-8 mt-12 md:mt-16"
             data-aos="fade-up"
@@ -184,7 +187,7 @@ export const HomeHero = () => {
           >
             <div className="flex flex-col">
               <span className="text-2xl md:text-3xl font-bold text-white">
-                1+
+                2+
               </span>
               <span className="text-xs md:text-sm text-gray-400 mt-1">
                 Years Experience
@@ -193,7 +196,7 @@ export const HomeHero = () => {
             <div className="w-px h-12 bg-slate-800"></div>
             <div className="flex flex-col">
               <span className="text-2xl md:text-3xl font-bold text-white">
-                5+
+                10+
               </span>
               <span className="text-xs md:text-sm text-gray-400 mt-1">
                 Projects Completed

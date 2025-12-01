@@ -11,9 +11,9 @@ import { cn } from "@/components/lib/utils";
 
 export const metadata: Metadata = {
   title:
-    "Joshua Bala Noma | Full Stack Developer - React, Next.js, Node.js WordPress Expert",
+    "Joshua Bala Noma | Full Stack Developer - React, JavaScript, TypeScript, Next.js, Node.js WordPress Expert",
   description:
-    "Full-stack web developer specializing in React, Next.js, TypeScript, Node.js and WordPress. Building scalable web applications and e-commerce solutions in Lagos, Nigeria. View my portfolio of successful projects.",
+    "Full-stack web developer specializing in JavaScript, React, Next.js, TypeScript, Tailwind, Node.js and WordPress. Building scalable web applications and e-commerce solutions in Lagos, Nigeria. View my portfolio of successful projects.",
   keywords: [
     "Full Stack Developer",
     "React Developer",
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
     "Joshua Bala Noma",
     "Ballyzap",
     "Web Applications",
-    "E-commerce Soltutions",
+    "E-commerce Solutions",
     "Remote Web Developer",
   ],
   authors: [{ name: "Joshua Bala Noma" }],
   creator: "Joshua Bala Noma",
   publisher: "Joshua Bala Noma",
-  metadataBase: new URL("https://ballyzap.netlify.app"), // Replace with your actual domain
+  metadataBase: new URL("https://ballyzap.netlify.app"),
   alternates: {
     canonical: "/",
   },
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     siteName: "Joshua Bala Noma Portfolio",
     images: [
       {
-        url: "/assets/image/og-image.jpg", // You'll need to create this
+        url: "/assets/image/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Joshua Bala Noma - Full Stack Developer",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     description:
       "Full-stack web developer specializing in React, Next.js, TypeScript, Node.js and WordPress.",
     images: ["/assets/image/og-image.jpg"],
-    creator: "@yourhandle", // Replace with your actual Twitter handle
+    creator: "@ballyzap", // TODO: Replace with your actual Twitter/X handle if different
   },
   robots: {
     index: true,
@@ -78,13 +78,13 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/icon.png",
-    shortcut: "/icon.png",
-    apple: "/icon.png",
-    other: {
-      rel: "apple-touch-icon-precomposed",
-      url: "/icon.png",
-    },
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+      { url: "/icon.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: ["/icon.png"],
   },
   manifest: "/site.webmanifest",
 };
@@ -98,12 +98,12 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Joshua Bala Noma",
-    url: "https://ballyzap.netlify.app", // Replace with your actual domain
+    url: "https://ballyzap.netlify.app",
     image: "https://ballyzap.netlify.app/assets/image/bala--bass.jpg",
     sameAs: [
-      "https://www.linkedin.com/in/joshua-bala-noma", // Replace with your actual profiles
-      "https://twitter.com/yourhandle",
-      "https://github.com/yourhandle",
+      "https://www.linkedin.com/in/joshua-bala-noma", // TODO: Replace with your actual LinkedIn URL
+      "https://twitter.com/ballyzap", // TODO: Replace with your actual Twitter/X URL
+      "https://github.com/ballyzap", // TODO: Replace with your actual GitHub URL
     ],
     jobTitle: "Full Stack Developer",
     worksFor: {
@@ -119,6 +119,9 @@ export default function RootLayout({
       "JavaScript",
       "Node.js",
       "Tailwind CSS",
+      "PostgreSQL",
+      "HTML",
+      "CSS",
     ],
     email: "ballyzap@gmail.com",
     address: {
