@@ -20,11 +20,21 @@ export const Header = () => {
   };
 
   // Toggle mobile menu visibility
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+
+    // Prevent body scroll when menu is open
+    if (!menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  };
 
   // Close menu when clicking on a link
   const handleLinkClick = () => {
     setMenuOpen(false);
+    document.body.style.overflow = "unset";
   };
 
   const handleScroll = () => {
@@ -59,6 +69,7 @@ export const Header = () => {
       // Assuming lg breakpoint is 1024px, adjust if your breakpoint differs
       if (window.innerWidth >= 1024) {
         setMenuOpen(false);
+        document.body.style.overflow = "unset";
       }
     };
 
@@ -69,6 +80,8 @@ export const Header = () => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      // Clean up: restore body scroll on unmount
+      document.body.style.overflow = "unset";
     };
   }, []);
 
@@ -105,7 +118,8 @@ export const Header = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className="lg:hidden p-2 border-0 bg-transparent ml-auto z-50"
+          className="lg:hidden p-2 border-0 bg-transparent ml-auto z-[110]"
+          aria-label="Toggle menu"
         >
           {menuOpen ? (
             <RiMenuFold2Fill className="text-gray-400 text-3xl" />
@@ -114,58 +128,68 @@ export const Header = () => {
           )}
         </button>
 
-        {/* Menu hidden off-screen by default */}
+        {/* Mobile Menu - Full Screen Overlay */}
         <div
-          className={`fixed top-0 bottom-0 left-full w-full px-4 py-6 overflow-hidden bg-slate-900/98 transition-all duration-500 ease-in-out z-40 ${
+          className={`fixed inset-0 bg-slate-900/98 backdrop-blur-lg transition-all duration-500 ease-in-out overflow-y-auto ${
             menuOpen
-              ? "translate-x-[-100%] bg-slate-900/98 backdrop-blur-lg"
-              : "invisible translate-x-full"
+              ? "opacity-100 visible z-[100]"
+              : "opacity-0 invisible pointer-events-none z-[-1]"
           }`}
         >
           {/* Spacer to account for header height */}
           <div className="h-[4.30rem]"></div>
-          <ul className="flex flex-col space-y-4">
-            {navInfos.map(({ label, path }, idx) => (
-              <li key={idx}>
-                <a
-                  href={`${path}`}
-                  onClick={handleLinkClick}
-                  className={`text-sm font-medium leading-6 transition-all duration-300 ${getActiveClasses(
-                    path
-                  )}`}
-                  style={{
-                    filter:
-                      pathname !== path && activeSection !== path
-                        ? "drop-shadow(0 0 0px rgba(251, 146, 60, 0))"
-                        : "none",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (pathname !== path && activeSection !== path) {
-                      e.currentTarget.style.filter =
-                        "drop-shadow(0 0 20px rgba(251, 146, 60, 0.9)) drop-shadow(0 0 40px rgba(251, 146, 60, 0.6))";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (pathname !== path && activeSection !== path) {
-                      e.currentTarget.style.filter =
-                        "drop-shadow(0 0 0px rgba(251, 146, 60, 0))";
-                    }
-                  }}
-                >
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
 
-          {/* Social Icons inside menu for mobile only */}
-          <div className="mt-6 flex space-x-4">
-            {socialInfos.map(({ href, icon: Icon, label }) => (
-              <a key={label} href={href} className="" aria-label={label}>
-                <Icon className="h-7 w-7 text-gray-300 rounded-full p-[8px]  bg-slate-800 hover:bg-peach-500 hover:text-white transition-all duration-300 hover:scale-110" />
-              </a>
-            ))}
+          <div className="px-4 py-6">
+            <ul className="flex flex-col space-y-4">
+              {navInfos.map(({ label, path }, idx) => (
+                <li key={idx}>
+                  <a
+                    href={`${path}`}
+                    onClick={handleLinkClick}
+                    className={`text-sm font-medium leading-6 transition-all duration-300 ${getActiveClasses(
+                      path
+                    )}`}
+                    style={{
+                      filter:
+                        pathname !== path && activeSection !== path
+                          ? "drop-shadow(0 0 0px rgba(251, 146, 60, 0))"
+                          : "none",
+                      transition: "all 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (pathname !== path && activeSection !== path) {
+                        e.currentTarget.style.filter =
+                          "drop-shadow(0 0 20px rgba(251, 146, 60, 0.9)) drop-shadow(0 0 40px rgba(251, 146, 60, 0.6))";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pathname !== path && activeSection !== path) {
+                        e.currentTarget.style.filter =
+                          "drop-shadow(0 0 0px rgba(251, 146, 60, 0))";
+                      }
+                    }}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            {/* Social Icons inside menu for mobile only */}
+            <div className="mt-6 flex space-x-4">
+              {socialInfos.map(({ href, icon: Icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className=""
+                  aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icon className="h-7 w-7 text-gray-300 rounded-full p-[8px] bg-slate-800 hover:bg-peach-500 hover:text-white transition-all duration-300 hover:scale-110" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -208,7 +232,14 @@ export const Header = () => {
           {/* Social Icons visible for large screen */}
           <div className="flex space-x-4 ml-auto">
             {socialInfos.map(({ href, icon: Icon, label }) => (
-              <a key={label} href={href} className="" aria-label={label}>
+              <a
+                key={label}
+                href={href}
+                className=""
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Icon className="h-7 w-7 p-[8px] text-gray-300 rounded-full bg-slate-800 hover:bg-peach-500 hover:text-white transition-all duration-300 hover:scale-110" />
               </a>
             ))}
