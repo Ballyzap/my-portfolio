@@ -187,7 +187,7 @@ export const HomeHero = () => {
           >
             <div className="flex flex-col">
               <span className="text-2xl md:text-3xl font-bold text-white">
-                2+
+                1+
               </span>
               <span className="text-xs md:text-sm text-gray-400 mt-1">
                 Years Experience
@@ -196,7 +196,7 @@ export const HomeHero = () => {
             <div className="w-px h-12 bg-slate-800"></div>
             <div className="flex flex-col">
               <span className="text-2xl md:text-3xl font-bold text-white">
-                10+
+                5+
               </span>
               <span className="text-xs md:text-sm text-gray-400 mt-1">
                 Projects Completed

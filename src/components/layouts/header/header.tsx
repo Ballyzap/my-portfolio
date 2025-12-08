@@ -95,19 +95,19 @@ export const Header = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out
-        ${scrolled ? "bg-slate-900/95 backdrop-blur-md shadow-lg" : "bg-transparent"}`}
+      className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ease-in-out
+        ${scrolled ? "bg-slate-900/100 shadow-lg" : "bg-transparent"}`}
     >
-      <div className="mx-auto flex justify-between items-center py-4 px-6 max-w-7xl">
-        {/* Logo Section */}
+      <div className="mx-auto flex justify-between items-center py-4 px-6">
+        {/* Image Logo */}
         <a
-          className="navbar-brand logo-image flex items-center z-50"
+          className="navbar-brand logo-image z-[110]"
           href="#home"
           aria-label="Home"
         >
           <Image
             src="/assets/image/logo.png"
-            alt="Joshua Bala Noma Logo"
+            alt="Logo"
             width={120}
             height={40}
             className="h-10 w-auto"
@@ -118,7 +118,7 @@ export const Header = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className="lg:hidden p-2 border-0 bg-transparent ml-auto z-50"
+          className="lg:hidden p-2 border-0 bg-transparent ml-auto z-[110]"
           aria-label="Toggle menu"
         >
           {menuOpen ? (
@@ -128,12 +128,12 @@ export const Header = () => {
           )}
         </button>
 
-        {/* Mobile Menu - FIXED: Now stays open with scroll */}
+        {/* Mobile Menu - Full Screen Overlay */}
         <div
-          className={`fixed inset-0 bg-slate-900/98 backdrop-blur-lg transition-all duration-500 ease-in-out z-40 overflow-y-auto ${
+          className={`fixed inset-0 bg-slate-900/98 backdrop-blur-lg transition-all duration-500 ease-in-out overflow-y-auto ${
             menuOpen
-              ? "opacity-100 visible"
-              : "opacity-0 invisible pointer-events-none"
+              ? "opacity-100 visible z-[100]"
+              : "opacity-0 invisible pointer-events-none z-[-1]"
           }`}
         >
           {/* Spacer to account for header height */}
@@ -193,8 +193,8 @@ export const Header = () => {
           </div>
         </div>
 
-        {/* Desktop Navbar links */}
-        <div className="hidden lg:flex space-x-8 items-center">
+        {/* Navbar links for large screens */}
+        <div className="hidden lg:flex space-x-8">
           <ul className="flex space-x-8">
             {navInfos.map(({ label, path }, idx) => (
               <li key={idx}>
@@ -230,7 +230,7 @@ export const Header = () => {
           </ul>
 
           {/* Social Icons visible for large screen */}
-          <div className="flex space-x-4 ml-4">
+          <div className="flex space-x-4 ml-auto">
             {socialInfos.map(({ href, icon: Icon, label }) => (
               <a
                 key={label}
